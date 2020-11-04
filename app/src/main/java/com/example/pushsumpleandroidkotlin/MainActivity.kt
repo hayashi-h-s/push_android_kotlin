@@ -240,8 +240,8 @@ class MainActivity : AppCompatActivity() {
 
         val childNotification = NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("足跡の通知")
-            .setContentText("足跡がつきました $num")
+            .setContentTitle(MAIL_CHANNEL_ID)
+            .setContentText("メール内容を表示$num")
             .setGroup(MAIL_CHANNEL_KEY)
 //                .priority = NotificationCompat.PRIORITY_DEFAULT
             .build()
