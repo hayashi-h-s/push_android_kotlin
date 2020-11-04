@@ -76,12 +76,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     // メール通知の表示メソッド
     fun addSummaryNotification() {
 //
-
-
         val pref: SharedPreferences = getSharedPreferences(
             PreferenceKey.PREFERENCES_FILE,
             Context.MODE_PRIVATE
@@ -94,6 +91,9 @@ class MainActivity : AppCompatActivity() {
         val childNotification2 = createChildNotification(pushId)
         val childNotification3 = createChildNotification(pushId)
         val childNotification4 = createChildNotification(pushId)
+
+        // メールのサマリー通知
+        val addMailSummaryNotification = addMailSummaryNotification()
 //
 //        val summaryNotification = NotificationCompat.Builder(this@MainActivity, CHANNEL_ID)
 //            .setContentTitle("Summary")
@@ -107,18 +107,20 @@ class MainActivity : AppCompatActivity() {
 
         with(NotificationManagerCompat.from(this)) {
 
+//            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+//
+//            notify(pushId, childNotification1.build())
+//
+//            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
+//            edit.apply()
+//
+            notify(1, childNotification1.build())
+            notify(2, childNotification2.build())
+            notify(3, childNotification3.build())
+            notify(4, childNotification4.build())
 
-            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+            notify(MAIL_GROUP, addMailSummaryNotification.build())
 
-            notify(pushId, childNotification1.build())
-
-            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
-            edit.apply()
-
-//            notify(1, childNotification1.build())
-//            notify(2, childNotification1.build())
-//            notify(3, childNotification1.build())
-//            notify(4, childNotification1.build())
         }
 
 //        notificationManager.notify(1, childNotification1)
@@ -138,11 +140,12 @@ class MainActivity : AppCompatActivity() {
 
         val pushId = pref.getInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, 0)
 
-
         val FootPrintNotification1 = createFootPrintNotification(pushId)
         val FootPrintNotification2 = createFootPrintNotification(pushId)
         val FootPrintNotification3 = createFootPrintNotification(pushId)
         val FootPrintNotification4 = createFootPrintNotification(pushId)
+
+        val footPrintAddSummaryNotification = addFootPrintAddSummaryNotification()
 //
 //        val summaryNotification = NotificationCompat.Builder(this@MainActivity, CHANNEL_ID)
 //            .setContentTitle("Summary")
@@ -156,17 +159,19 @@ class MainActivity : AppCompatActivity() {
 
         with(NotificationManagerCompat.from(this)) {
 
-            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+//            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+//
+//            notify(pushId, FootPrintNotification1.build())
+//            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
+//            edit.apply()
 
-            notify(pushId, FootPrintNotification1.build())
+            notify(1, FootPrintNotification1.build())
+            notify(2, FootPrintNotification2.build())
+            notify(3, FootPrintNotification3.build())
+            notify(4, FootPrintNotification4.build())
 
-            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
-            edit.apply()
+            notify(FOOTPRINT_GROUP, footPrintAddSummaryNotification.build())
 
-//            notify(1, FootPrintNotification1.build())
-//            notify(2, FootPrintNotification2.build())
-//            notify(3, FootPrintNotification3.build())
-//            notify(4, FootPrintNotification4.build())
         }
 
 //        notificationManager.notify(1, childNotification1)
@@ -192,7 +197,7 @@ class MainActivity : AppCompatActivity() {
 
         val childNotification = NotificationCompat.Builder(this, MAIL_CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_launcher_foreground)
-            setContentTitle("MAIL_CHANNEL_ID")
+            setContentTitle(MAIL_CHANNEL_ID)
             setContentText("メール内容を表示$num")
             setGroup(MAIL_CHANNEL_ID)
             priority = NotificationCompat.PRIORITY_DEFAULT
@@ -260,10 +265,32 @@ class MainActivity : AppCompatActivity() {
             setSmallIcon(R.drawable.ic_stat_name)
             setGroup(MAIL_CHANNEL_ID)
             setGroupSummary(true)
-            build()
         }
 
 //        notificationManager.notify(SUMMARY_ID, summaryNotification)
     }
+
+    // 足跡のサマリー作成
+    fun addFootPrintAddSummaryNotification():  NotificationCompat.Builder {
+
+//        val childNotification1 = createChildNotification(1)
+//        val childNotification = createChildNotification(2)
+//        NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
+//        val summaryMailNotification = NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
+        //        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        val notificationManager = NotificationManagerCompat.from(this)
+
+        return NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
+            setContentTitle("Summary")
+            setSmallIcon(R.drawable.ic_stat_name)
+            setGroup(FOOTPRINT_CHANNEL_ID)
+            setGroupSummary(true)
+        }
+
+//        notificationManager.notify(SUMMARY_ID, summaryNotification)
+    }
+
+
 
 }
