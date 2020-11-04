@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     // サマリーID → ここで通知のグループを指定している。
     val MAIL_GROUP = 0
     // → ここで、チャンネル名を指定している
-    val MAIL_CHANNEL = "メール"
+    val MAIL_CHANNEL_KEY = "mail_key"
     // チャンネルID
     private val MAIL_CHANNEL_ID = "メール"
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     val FAVORITE_CHANNEL_ID = "いいね"
 
     val FOOTPRINT_GROUP = 1
-    val FOOTPRINT_CHANNEL = "足あと"
+    val FOOTPRINT_CHANNEL_KEY = "fot_print_key"
     val FOOTPRINT_CHANNEL_ID = "足あと"
 
     val IMPORTANT_INFO_CHANNEL = "重要なお知らせ"
@@ -104,28 +104,45 @@ class MainActivity : AppCompatActivity() {
 //        val notificationManager = NotificationManagerCompat.from(this)
 //
 //        Log.d("childNotification1", "TAG childNotification1= $childNotification1")
-
-        with(NotificationManagerCompat.from(this)) {
-
-//            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
 //
-//            notify(pushId, childNotification1.build())
+//        with(NotificationManagerCompat.from(this)) {
 //
-//            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
-//            edit.apply()
+////            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+////
+////            notify(pushId, childNotification1.build())
+////
+////            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
+////            edit.apply()
+////
+//            notify(1, childNotification1.build())
+//            notify(2, childNotification2.build())
+//            notify(3, childNotification3.build())
+//            notify(4, childNotification4.build())
 //
-            notify(1, childNotification1.build())
-            notify(2, childNotification2.build())
-            notify(3, childNotification3.build())
-            notify(4, childNotification4.build())
-
-            notify(MAIL_GROUP, addMailSummaryNotification.build())
-
-        }
+//            notify(MAIL_GROUP, addMailSummaryNotification.build())
+//
+//        }
 
 //        notificationManager.notify(1, childNotification1)
 //        notificationManager.notify(2, childNotification)
 //        notificationManager.notify(SUMMARY_ID, summaryNotification)
+
+        val notificationManager = NotificationManagerCompat.from(this)
+        //            notify(1, FootPrintNotification1.build())
+        if (childNotification1 != null) {
+            notificationManager.notify(2, childNotification1)
+        }
+        if (childNotification2 != null) {
+            notificationManager.notify(3, childNotification2)
+        }
+        if (childNotification3 != null) {
+            notificationManager.notify(4, childNotification3)
+        }
+
+        if (addMailSummaryNotification != null) {
+            notificationManager.notify(FOOTPRINT_GROUP, addMailSummaryNotification)
+        }
+
     }
 
 
@@ -157,22 +174,40 @@ class MainActivity : AppCompatActivity() {
 //
 //        Log.d("childNotification1", "TAG childNotification1= $childNotification1")
 
-        with(NotificationManagerCompat.from(this)) {
-
-//            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+//        with(NotificationManagerCompat.from(this)) {
 //
-//            notify(pushId, FootPrintNotification1.build())
-//            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
-//            edit.apply()
+////            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
+////
+////            notify(pushId, FootPrintNotification1.build())
+////            edit.putInt(PreferenceKey.PREFERENCES_KEY_PUSH_ID, pushId + 1)
+////            edit.apply()
+//
+//            notify(1, FootPrintNotification1.build())
+//            notify(2, FootPrintNotification2.build())
+//            notify(3, FootPrintNotification3.build())
+//            notify(4, FootPrintNotification4.build())
+//
+//            notify(FOOTPRINT_GROUP, footPrintAddSummaryNotification.build())
+//
+//        }
 
-            notify(1, FootPrintNotification1.build())
-            notify(2, FootPrintNotification2.build())
-            notify(3, FootPrintNotification3.build())
-            notify(4, FootPrintNotification4.build())
 
-            notify(FOOTPRINT_GROUP, footPrintAddSummaryNotification.build())
-
+        val notificationManager = NotificationManagerCompat.from(this)
+        //            notify(1, FootPrintNotification1.build())
+        if (FootPrintNotification2 != null) {
+            notificationManager.notify(2, FootPrintNotification2)
         }
+        if (FootPrintNotification3 != null) {
+            notificationManager.notify(3, FootPrintNotification3)
+        }
+        if (FootPrintNotification4 != null) {
+            notificationManager.notify(4, FootPrintNotification4)
+        }
+
+        if (footPrintAddSummaryNotification != null) {
+            notificationManager.notify(FOOTPRINT_GROUP, footPrintAddSummaryNotification)
+        }
+
 
 //        notificationManager.notify(1, childNotification1)
 //        notificationManager.notify(2, childNotification)
@@ -181,7 +216,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // メール通知の追加
-    fun createChildNotification(num: Int): NotificationCompat.Builder {
+    fun createChildNotification(num: Int): Notification? {
 //        val childNotification = NotificationCompat.Builder(this@MainActivity, CHANNEL_ID)
 //                .setSmallIcon(R.drawable.ic_stat_name)
 //                .setContentTitle("Content Title $num")
@@ -194,14 +229,23 @@ class MainActivity : AppCompatActivity() {
 //                .build()
 //        return childNotification
 
+//        val childNotification = NotificationCompat.Builder(this, MAIL_CHANNEL_ID).apply {
+//            setSmallIcon(R.drawable.ic_launcher_foreground)
+//            setContentTitle(MAIL_CHANNEL_ID)
+//            setContentText("メール内容を表示$num")
+//            setGroup(MAIL_CHANNEL_KEY)
+//            priority = NotificationCompat.PRIORITY_DEFAULT
+//        }
 
-        val childNotification = NotificationCompat.Builder(this, MAIL_CHANNEL_ID).apply {
-            setSmallIcon(R.drawable.ic_launcher_foreground)
-            setContentTitle(MAIL_CHANNEL_ID)
-            setContentText("メール内容を表示$num")
-            setGroup(MAIL_CHANNEL_ID)
-            priority = NotificationCompat.PRIORITY_DEFAULT
-        }
+
+        val childNotification = NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("足跡の通知")
+            .setContentText("足跡がつきました $num")
+            .setGroup(MAIL_CHANNEL_KEY)
+//                .priority = NotificationCompat.PRIORITY_DEFAULT
+            .build()
+
 
 // API 26 以上の場合は NotificationChannel に登録する
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -222,14 +266,24 @@ class MainActivity : AppCompatActivity() {
 
 
     // 足跡の通知
-    fun createFootPrintNotification(num: Int): NotificationCompat.Builder {
+    fun createFootPrintNotification(num: Int):Notification? {
 
-        val childNotification = NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
-            setSmallIcon(R.drawable.ic_launcher_foreground)
-            setContentTitle("足跡の通知")
-            setContentText("足跡がつきました $num")
-            priority = NotificationCompat.PRIORITY_DEFAULT
-        }
+//        val childNotification = NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
+//            setSmallIcon(R.drawable.ic_launcher_foreground)
+//            setContentTitle("足跡の通知")
+//            setContentText("足跡がつきました $num")
+//            setGroup(FOOTPRINT_CHANNEL_KEY)
+//            priority = NotificationCompat.PRIORITY_DEFAULT
+//        }
+
+            val childNotification = NotificationCompat.Builder(this@MainActivity, FOOTPRINT_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("足跡の通知")
+                .setContentText("足跡がつきました $num")
+                .setGroup(FOOTPRINT_CHANNEL_KEY)
+//                .priority = NotificationCompat.PRIORITY_DEFAULT
+                .build()
+
 
         // API 26 以上の場合は NotificationChannel に登録する
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -250,7 +304,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // メールのサマリー作成
-    fun addMailSummaryNotification():  NotificationCompat.Builder {
+    fun addMailSummaryNotification(): Notification? {
 
 //        val childNotification1 = createChildNotification(1)
 //        val childNotification = createChildNotification(2)
@@ -260,18 +314,26 @@ class MainActivity : AppCompatActivity() {
 //
 //        val notificationManager = NotificationManagerCompat.from(this)
 
-        return NotificationCompat.Builder(this, MAIL_CHANNEL_ID).apply {
-            setContentTitle("Summary")
-            setSmallIcon(R.drawable.ic_stat_name)
-            setGroup(MAIL_CHANNEL_ID)
-            setGroupSummary(true)
-        }
+//        return NotificationCompat.Builder(this, MAIL_CHANNEL_ID).apply {
+//            setContentTitle("メールのサマリ")
+//            setSmallIcon(R.drawable.ic_stat_name)
+//            setGroup(MAIL_CHANNEL_KEY)
+//            setGroupSummary(true)
+//        }
+
+        return NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
+            .setContentTitle("メールのサマリ")
+            .setSmallIcon(R.drawable.ic_stat_name)
+            .setGroup(MAIL_CHANNEL_KEY)
+            .setGroupSummary(true)
+            .build()
+
 
 //        notificationManager.notify(SUMMARY_ID, summaryNotification)
     }
 
     // 足跡のサマリー作成
-    fun addFootPrintAddSummaryNotification():  NotificationCompat.Builder {
+    fun addFootPrintAddSummaryNotification(): Notification? {
 
 //        val childNotification1 = createChildNotification(1)
 //        val childNotification = createChildNotification(2)
@@ -281,16 +343,22 @@ class MainActivity : AppCompatActivity() {
 //
 //        val notificationManager = NotificationManagerCompat.from(this)
 
-        return NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
-            setContentTitle("Summary")
-            setSmallIcon(R.drawable.ic_stat_name)
-            setGroup(FOOTPRINT_CHANNEL_ID)
-            setGroupSummary(true)
-        }
+//        return NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
+//            setContentTitle("足跡のサマリ")
+//            setSmallIcon(R.drawable.ic_stat_name)
+//            setGroup(FOOTPRINT_CHANNEL_KEY)
+//            setGroupSummary(true)
+//        }
+
+        return NotificationCompat.Builder(this@MainActivity, FOOTPRINT_CHANNEL_ID)
+            .setContentTitle("足跡のサマリ")
+            .setSmallIcon(R.drawable.ic_stat_name)
+            .setGroup(FOOTPRINT_CHANNEL_KEY)
+            .setGroupSummary(true)
+            .build()
 
 //        notificationManager.notify(SUMMARY_ID, summaryNotification)
     }
-
 
 
 }
