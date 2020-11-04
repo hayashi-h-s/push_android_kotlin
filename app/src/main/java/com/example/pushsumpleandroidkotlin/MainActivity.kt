@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     val SUMMARY_ID = 0 // サマリーID
     val GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL"
 
+
+    val SUMMARY_ID2 = 1 // サマリーID
     val GROUP_KEY_WORK_EMAIL2 = "com.android.example.WORK_EMAIL2"
 
     val GROUP_KEY = "group_key" // チャンネルID
@@ -93,14 +95,14 @@ class MainActivity : AppCompatActivity() {
     fun addNotification() {
         val newMessageNotification1 = NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("タイトル1 newMessageNotification1 ")
+            .setContentTitle("メール１ newMessageNotification1 ")
             .setContentText("You will not believe...")
             .setGroup(GROUP_KEY_WORK_EMAIL)
             .build()
 
         val newMessageNotification2 = NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("タイトル2 newMessageNotification1 ")
+            .setContentTitle("メール２ newMessageNotification1 ")
             .setContentText("Please join us to celebrate the...")
             .setGroup(GROUP_KEY_WORK_EMAIL)
             .build()
@@ -168,9 +170,9 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         NotificationManagerCompat.from(this).apply {
-            notify(1, newMessageNotification1)
-            notify(2, newMessageNotification2)
-            notify(SUMMARY_ID, summaryNotification)
+            notify(3, newMessageNotification1)
+            notify(4, newMessageNotification2)
+            notify(SUMMARY_ID2, summaryNotification)
         }
     }
 
