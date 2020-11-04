@@ -1,5 +1,6 @@
 package com.example.pushsumpleandroidkotlin
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -22,10 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     // サマリーID → ここで通知のグループを指定している。
     val MAIL_GROUP = 0
-
     // → ここで、チャンネル名を指定している
     val MAIL_CHANNEL = "メール"
-
     // チャンネルID
     private val MAIL_CHANNEL_ID = "メール"
 
@@ -109,8 +108,7 @@ class MainActivity : AppCompatActivity() {
         with(NotificationManagerCompat.from(this)) {
 
 
-
-            Log.d("TAG プリファレンス ID = ","pushId="+pushId)
+            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
 
             notify(pushId, childNotification1.build())
 
@@ -158,7 +156,7 @@ class MainActivity : AppCompatActivity() {
 
         with(NotificationManagerCompat.from(this)) {
 
-            Log.d("TAG プリファレンス ID = ","pushId="+pushId)
+            Log.d("TAG プリファレンス ID = ", "pushId=" + pushId)
 
             notify(pushId, FootPrintNotification1.build())
 
@@ -196,13 +194,14 @@ class MainActivity : AppCompatActivity() {
             setSmallIcon(R.drawable.ic_launcher_foreground)
             setContentTitle("MAIL_CHANNEL_ID")
             setContentText("メール内容を表示$num")
+            setGroup(MAIL_CHANNEL_ID)
             priority = NotificationCompat.PRIORITY_DEFAULT
         }
 
 // API 26 以上の場合は NotificationChannel に登録する
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "チャンネルの名前"
-            val description = "チャンネルの説明文"
+            val name = "メール"
+            val description = "メールの通知の説明文をここに記入できます。"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(MAIL_CHANNEL_ID, name, importance).apply {
                 this.description = description
@@ -227,10 +226,10 @@ class MainActivity : AppCompatActivity() {
             priority = NotificationCompat.PRIORITY_DEFAULT
         }
 
-// API 26 以上の場合は NotificationChannel に登録する
+        // API 26 以上の場合は NotificationChannel に登録する
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "チャンネルの名前"
-            val description = "チャンネルの説明文"
+            val name = "足跡の通知"
+            val description = "足跡の通知の説明文をここに記入できます。"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(FOOTPRINT_CHANNEL_ID, name, importance).apply {
                 this.description = description
@@ -242,6 +241,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         return childNotification
+    }
+
+
+    // メールのサマリー作成
+    fun addMailSummaryNotification():  NotificationCompat.Builder {
+
+//        val childNotification1 = createChildNotification(1)
+//        val childNotification = createChildNotification(2)
+//        NotificationCompat.Builder(this, FOOTPRINT_CHANNEL_ID).apply {
+//        val summaryMailNotification = NotificationCompat.Builder(this@MainActivity, MAIL_CHANNEL_ID)
+        //        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        val notificationManager = NotificationManagerCompat.from(this)
+
+        return NotificationCompat.Builder(this, MAIL_CHANNEL_ID).apply {
+            setContentTitle("Summary")
+            setSmallIcon(R.drawable.ic_stat_name)
+            setGroup(MAIL_CHANNEL_ID)
+            setGroupSummary(true)
+            build()
+        }
+
+//        notificationManager.notify(SUMMARY_ID, summaryNotification)
     }
 
 }
